@@ -56,6 +56,46 @@ async generateLicense(productPermalink, email, expiresInDays = null) {
   return response;
 }
 
+async listLicenses(productPermalink) {
+  const url = `${this.baseURL}/list`;
+  const data = {
+    product_permalink: productPermalink,
+  };
+  const response = await this._makeRequest(url, 'POST', data);
+  return response;
+}
+
+async updateLicense(productPermalink, licenseKey, dataToUpdate) {
+  const url = `${this.baseURL}/update`;
+  const data = {
+    product_permalink: productPermalink,
+    license_key: licenseKey,
+    data: dataToUpdate,
+  };
+  const response = await this._makeRequest(url, 'POST', data);
+  return response;
+}
+
+async deleteLicense(productPermalink, licenseKey) {
+  const url = `${this.baseURL}/delete`;
+  const data = {
+    product_permalink: productPermalink,
+    license_key: licenseKey,
+  };
+  const response = await this._makeRequest(url, 'POST', data);
+  return response;
+}
+
+async reinstateLicense(productPermalink, licenseKey) {
+    const url = `${this.baseURL}/reinstate`;
+    const data = {
+      product_permalink: productPermalink,
+      license_key: licenseKey,
+    };
+    const response = await this._makeRequest(url, 'POST', data);
+    return response;
+  }
+
   async _makeRequest(url, method = 'GET', body = {}) {
     const response = await fetch(url, {
       method,
