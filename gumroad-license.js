@@ -24,6 +24,38 @@ export default class GumroadLicenseAPI {
     return response;
   }
 
+async getLicenseDetails(productPermalink, licenseKey) {
+  const url = `${this.baseURL}/details`;
+  const data = {
+    product_permalink: productPermalink,
+    license_key: licenseKey,
+  };
+  const response = await this._makeRequest(url, 'POST', data);
+  return response;
+}
+
+async reissueLicense(productPermalink, licenseKey, email) {
+  const url = `${this.baseURL}/reissue`;
+  const data = {
+    product_permalink: productPermalink,
+    license_key: licenseKey,
+    email: email,
+  };
+  const response = await this._makeRequest(url, 'POST', data);
+  return response;
+}
+
+async generateLicense(productPermalink, email, expiresInDays = null) {
+  const url = `${this.baseURL}/generate`;
+  const data = {
+    product_permalink: productPermalink,
+    email: email,
+    expires_in_days: expiresInDays,
+  };
+  const response = await this._makeRequest(url, 'POST', data);
+  return response;
+}
+
   async _makeRequest(url, method = 'GET', body = {}) {
     const response = await fetch(url, {
       method,
