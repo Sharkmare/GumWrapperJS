@@ -14,6 +14,16 @@ export default class GumroadLicenseAPI {
     return response;
   }
 
+  async revokeLicense(productPermalink, licenseKey) {
+    const url = `${this.baseURL}/revoke`;
+    const data = {
+      product_permalink: productPermalink,
+      license_key: licenseKey,
+    };
+    const response = await this._makeRequest(url, 'POST', data);
+    return response;
+  }
+
   async _makeRequest(url, method = 'GET', body = {}) {
     const response = await fetch(url, {
       method,
